@@ -2,7 +2,7 @@
 import merge from 'lodash/merge';
 
 let initialState = {
-  accessToken: '',
+  accessToken: null,
   userinfo: null,
 }
 

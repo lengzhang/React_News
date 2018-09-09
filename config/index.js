@@ -11,7 +11,7 @@ let config = {
   port: 4000,
 
   // 登录token，cookie 的名称
-  auth_cookie_name: 'signin-cookie',
+  auth_cookie_name: 'react-news-cookie',
 
   // https://github.com/css-modules/css-modules
   class_scoped_name: '[hash:base64:8]',
