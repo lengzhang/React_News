@@ -79,15 +79,15 @@ export class PCHead extends React.Component {
         return (<header className="container">
 
             <MediaQuery query='(min-device-width: 1224px)'>
-                <nav className="navbar fixed-top navbar-expand navbar-light bg-light" styleName="NavBar">
-                    <NavLink className="navbar-brand nav-link" to="/" styleName="logo">
+                <nav className="container-fluid navbar fixed-top navbar-expand navbar-light bg-light" styleName="NavBar">
+                    <NavLink className="navbar-brand nav-link ml-5" to="/" styleName="logo">
                         <div className="m-0" styleName="icon"></div>
                         <div>ReactNews</div>
                     </NavLink>
                     <div className="navbar-nav mr-auto ml-5">
                         {navBarItemsArr.map((item, index) => (<NavLink key={index} styleName="NavBarItem" className="nav-item nav-link mr-auto" exact={true} to={item.path}>{item.title}</NavLink>))}
                     </div>
-                    {userinfo.account ? userBtn : signBtn}
+                    <div className="mr-5">{userinfo.account ? userBtn : signBtn}</div>
                 </nav>
             </MediaQuery>
             <MediaQuery query='(max-device-width: 1224px)'>

@@ -8,10 +8,16 @@ import {withRouter} from 'react-router-dom';
 // 壳组件
 import Shell from '../../components/shell';
 import Meta from '../../components/meta';
-import NewsList from '../../components/news/list';
+
 import Carousel from '../../components/bootstrap/carousel'
 
+import NewsList from '../../components/news/list';
+import ImageNews from '../../components/news/image';
+
 import MediaQuery from 'react-responsive';
+
+import CSSModules from 'react-css-modules';
+import styles from './style.scss';
 
 export class Home extends React.Component {
 
@@ -57,15 +63,16 @@ export class Home extends React.Component {
             {console.log("in home")}
 
             <MediaQuery query='(min-device-width: 1224px)'>
-                <div className="container mt-3">
+                <div className="container-fluid mt-3" styleName="container">
                     <div className="row">
                         <div className="col-4">
                             <Carousel id="lunbo" images={carousel_images} interval="3000"/>
+                            <ImageNews type="guoji" title="国际头条" count={9} />
                         </div>
-                        <div className="col-4">
+                        <div className="col-5">
                             <NewsList type={'top'} count={3} />
                         </div>
-                        <div className="col-4">
+                        <div className="col-3">
                             <NewsList type={'yule'} count={3} />
                         </div>
                     </div>
@@ -79,6 +86,8 @@ export class Home extends React.Component {
     }
 
 }
+
+Home = CSSModules(Home, styles);
 
 Home = withRouter(Home);
 
