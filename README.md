@@ -12,18 +12,6 @@ Web前端世界日新月异变化太快，为了让自己跟上节奏不掉队�
 
 
 
-## 开始
-
-***没有在windows机器上测试过，可能会报错***
-
-```
-$ git clone git@github.com:54sword/react-starter.git
-$ cd react-starter
-$ npm install
-$ npm run dev
-```
-浏览器打开 [http://localhost:4040](http://localhost:4040)
-
 ## 相关命令说明
 
 ### 开发环境  
