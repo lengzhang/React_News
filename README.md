@@ -42,3 +42,5 @@ NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server
 ```
 NODE_ENV=production __NODE__=true BABEL_ENV=server pm2 start src/server --name "react-starter" --max-memory-restart 400M
 ```
+
+## 项目端口 4040
