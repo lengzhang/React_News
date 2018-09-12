@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <%= htmlWebpackPlugin.options.headMeta %>
+  <meta charset="utf-8" /><%= htmlWebpackPlugin.options.headMeta %>
 </head>
-
 <body>
-    <div id="app">
-        <%= htmlWebpackPlugin.options.htmlDom %>
-    </div>
-    <script>
-        window.__initState__ = <%= htmlWebpackPlugin.options.reduxState %>
-    </script>
+  <div id="app"><%= htmlWebpackPlugin.options.htmlDom %></div>
+  <script>
+    window.__initState__ = <%= htmlWebpackPlugin.options.reduxState %>
+  </script>
 </body>
-
 </html>
