@@ -8,7 +8,6 @@ import {loadNewsContent} from '../../actions/news';
 import {getNewsByUniqueKey} from '../../reducers/news';
 
 import Meta from '../../components/meta';
-import Card from '../../components/bootstrap/card';
 
 import CSSModules from 'react-css-modules';
 import styles from './style.scss';
