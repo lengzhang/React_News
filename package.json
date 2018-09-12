@@ -8,7 +8,8 @@
     "dist": "NODE_ENV=production __NODE__=false BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js",
     "server": "NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server",
     "dev1": "BABEL_ENV=server webpack --progress --colors --config webpack.development.config.js --mode=development && NODE_ENV=development __NODE__=true BABEL_ENV=server node src/server",
-    "pro1": "BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js --mode=production && NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server"
+    "pro1": "BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js --mode=production && NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server",
+    "pm2": "NODE_ENV=production __NODE__=true BABEL_ENV=server pm2 start src/server --name \"ReactNews\" --max-memory-restart 400M"
   },
   "engines": {
     "node": ">=8.6.0"
