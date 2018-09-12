@@ -1,6 +1,10 @@
 import Ajax from '../common/ajax'
 import Fetch from '../common/fetch'
 
+import nodeFetch from 'node-fetch'
+
+import { getUserInfo } from '../reducers/user'
+
 // 储存accessToken到redux
 export function saveAccessToken({
     accessToken
@@ -94,6 +98,46 @@ export function signOut() {
             } else {
                 resolve(['sign error'])
             }
+
+        })
+    }
+}
+
+export function loadUserComments() {
+    return (dispatch, getState) => {
+        return new Promise(async (resolve, reject) => {
+            let userinfo = await getUserInfo(getState());
+            let url = `http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=${userinfo.id}`
+            let options = {
+                method: 'GET'
+            }
+
+            let response = await nodeFetch(url, options).then(response => response.json());
+            await dispatch({
+                type: 'SAVE_USERCOMMENTS',
+                comments: response
+            });
+            resolve(null);
+
+        })
+    }
+}
+
+export function loadUserCollections() {
+    return (dispatch, getState) => {
+        return new Promise(async (resolve, reject) => {
+            let userinfo = await getUserInfo(getState());
+            let url = `http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=${userinfo.id}`
+            let options = {
+                method: 'GET'
+            }
+
+            let response = await nodeFetch(url, options).then(response => response.json());
+            await dispatch({
+                type: 'SAVE_USERCOLLECTIONS',
+                collections: response
+            });
+            resolve(null);
 
         })
     }

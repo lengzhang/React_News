@@ -15,6 +15,16 @@ import Head from '../components/head';
  */
 export default(user) => {
 
+    // 登录用户才能访问
+    const requireAuth = (Layout, props) => {
+        if (!user) {
+            return <Redirect to="/"/>
+        } else {
+            return <Layout {...props}/>
+        }
+    }
+
+    // 大家都可以访问
     const triggerEnter = (Layout, props) => {
         return <Layout {...props}/>
     }
@@ -29,6 +39,41 @@ export default(user) => {
                 loader: () => import ('../pages/home')
             }),
             enter: triggerEnter
+        }, {
+            path: '/UserCenter',
+            exact: true,
+            head: Head,
+            component: asyncRouteComponent({
+                loader: () => import ('../pages/user-center')
+            }),
+            enter: requireAuth
+        }, {
+            path: '/NewsPage/:type',
+            exact: true,
+            head: Head,
+            component: asyncRouteComponent({
+                loader: () => import ('../pages/news')
+            }),
+            enter: triggerEnter
+        }, {
+            path: '/news/:id',
+            exact: true,
+            head: Head,
+            component: asyncRouteComponent({
+                loader: () => import ('../pages/news-detail')
+            }),
+            enter: triggerEnter
+        }, {
+            path: '/**',
+            head: Head,
+            // component: Loadable({
+            //   loader: () => import('../pages/not-found'),
+            //   loading: Loading,
+            // }),
+            component: asyncRouteComponent({
+                loader: () => import ('../pages/not-found')
+            }),
+            enter: triggerEnter
         }
     ]
 
@@ -38,15 +83,15 @@ export default(user) => {
             {routeArr.map((route, index) => (<Route key={index} path={route.path} exact={route.exact} component={route.head}/>))}
         </Switch>
         {
-        <Switch>
-            {
-                routeArr.map((route, index) => {
-                    if (route.component) {
-                        return (<Route key={index} path={route.path} exact={route.exact} component={props => route.enter(route.component, props)}/>)
+            <Switch>
+                    {
+                        routeArr.map((route, index) => {
+                            if (route.component) {
+                                return (<Route key={index} path={route.path} exact={route.exact} component={props => route.enter(route.component, props)}/>)
+                            }
+                        })
                     }
-                })
-            }
-        </Switch>
+                </Switch>
 
         }
     </div>)

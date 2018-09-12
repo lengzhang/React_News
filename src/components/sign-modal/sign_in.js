@@ -8,9 +8,11 @@ import { signIn } from '../../actions/user';
 import CSSModules from 'react-css-modules';
 import styles from './style.scss';
 
-
-
 export class SignIn extends Component {
+
+    static propTypes = {
+        path: PropTypes.string.isRequired
+    }
 
     constructor(props) {
         super(props)
@@ -40,7 +42,7 @@ export class SignIn extends Component {
 
         if (success) {
           // 登录成功跳转到首页
-            window.location.href = '/';
+            window.location.href = `${this.props.path}`;
         } else {
             submit.value = '登录';
             submit.disabled = false;

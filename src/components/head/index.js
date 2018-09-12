@@ -31,6 +31,8 @@ export class PCHead extends React.Component {
         if (success) {
             // 退出成功跳转到首页
             window.location.href = '/';
+            //window.location.href = `${this.props.location.pathname}`;
+
         } else {
             alert('退出失败');
         }
@@ -42,22 +44,22 @@ export class PCHead extends React.Component {
                 path: "/",
                 title: "头条"
             }, {
-                path: "/shehui",
+                path: "/NewsPage/shehui",
                 title: "社会"
             }, {
-                path: "/guonei",
+                path: "/NewsPage/guonei",
                 title: "国内"
             }, {
-                path: "/guoji",
+                path: "/NewsPage/guoji",
                 title: "国际"
             }, {
-                path: "/yule",
+                path: "/NewsPage/yule",
                 title: "娱乐"
             }, {
-                path: "/tiyu",
+                path: "/NewsPage/tiyu",
                 title: "体育"
             }, {
-                path: "/shishang",
+                path: "/NewsPage/shishang",
                 title: "时尚"
             }
         ]
@@ -66,7 +68,7 @@ export class PCHead extends React.Component {
 
         // 用户已登录
         const userBtn = (<div className="btn-group" role="group" aria-label="Basic example">
-            <button type="button" className="btn btn-outline-primary">{userinfo.account}</button>
+            <Link to={`/UserCenter`}  className="btn btn-outline-primary" >{userinfo.account}</Link>
             <button type="button" className="btn btn-outline-primary" onClick={this.signOut}>退出</button>
         </div>)
 
@@ -99,7 +101,7 @@ export class PCHead extends React.Component {
                     {userinfo.account ? userBtn : signBtn}
                 </nav>
             </MediaQuery>
-            <SignModal/>
+            <SignModal path={this.props.location.pathname}/>
         </header>)
 
     }

@@ -12,17 +12,13 @@ import Card from '../../bootstrap/card';
 import CSSModules from 'react-css-modules';
 import styles from './style.scss';
 
-export class ImageNews extends React.Component {
+export class ListBlock extends React.Component {
 
     static propTypes = {
         // 要获取的新闻的type
         type: PropTypes.string.isRequired,
-        // 要获取的新闻的title
-        title: PropTypes.string.isRequired,
         // 要获取的新闻的count
         count: PropTypes.number.isRequired,
-
-        width: PropTypes.string.isRequired,
 
         // 列表数据
         list: PropTypes.array.isRequired,
@@ -41,37 +37,29 @@ export class ImageNews extends React.Component {
 
     render() {
         const {list} = this.props;
-        const styleBlock = {
-            width: this.props.width,
-        }
-        const imageNewsBlocks = (<div styleName="block_container">
+
+        const newsListBlocks = (<div>
             {
                 list.map((item, index) => {
-                    let title = (
-                        <div styleName="title">{item.title}</div>
-                    )
-                    let text = (<div styleName="title">{item.author_name}</div>)
+
                     return (
                         index < this.props.count ?
-                        <div className="p-1" style={styleBlock} key={index}>
-                            <a href="#">
-                                <Card image={item.thumbnail_pic_s} subtitle={title} text={text}/>
-                            </a>
+                        <div className="mb-2" styleName="title" key={index}>
+                            <Link to={`/news/${item.uniquekey}`}>{item.title}</Link>
                         </div>
                         : null
-
                     )})
             }
         </div>)
         return (<div className="mt-3">
-            <Card header={this.props.title} text={imageNewsBlocks}/>
+            <Card text={newsListBlocks}/>
         </div>)
 
     }
 
 }
 
-ImageNews = CSSModules(ImageNews, styles);
+ListBlock = CSSModules(ListBlock, styles);
 
 const mapStateToProps = (state, props) => {
     return {
@@ -85,6 +73,6 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-ImageNews = connect(mapStateToProps, mapDispatchToProps)(ImageNews);
+ListBlock = connect(mapStateToProps, mapDispatchToProps)(ListBlock);
 
-export default ImageNews;
+export default ListBlock;

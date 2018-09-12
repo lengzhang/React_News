@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // components
 import Modal from '../bootstrap/modal';
@@ -12,6 +13,10 @@ import styles from './style.scss';
 
 @CSSModules(styles)
 export default class SignModal extends Component {
+
+    static propTypes = {
+        path: PropTypes.string.isRequired
+    }
 
     constructor(props) {
         super(props)
@@ -48,8 +53,8 @@ export default class SignModal extends Component {
 
         const body = (<div>
             {type == 'sign-in'
-            ? <SignIn displayComponent={this.displayComponent}/>
-            : <SignUp displayComponent={this.displayComponent}/>}
+            ? <SignIn path={this.props.path} displayComponent={this.displayComponent}/>
+            : <SignUp path={this.props.path} displayComponent={this.displayComponent}/>}
         </div>);
 
         const footer = (

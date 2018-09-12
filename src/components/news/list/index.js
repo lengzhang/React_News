@@ -10,6 +10,34 @@ import { getNewsListByNewsType } from '../../../reducers/news';
 import CSSModules from 'react-css-modules';
 import styles from './style.scss';
 
+import { Hidden, Grid, Paper, Typography } from '@material-ui/core';
+import { Card, CardContent, CardMedia} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const sty = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+    },
+    card: {
+        display: 'flex',
+    },
+    details: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    content: {
+        flex: '1 0 auto',
+    },
+    cover: {
+        width: 100,
+    }
+})
+
 export class NewsList extends React.Component {
 
     static propTypes = {
@@ -27,48 +55,72 @@ export class NewsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
-        console.log("constructor");
     }
 
     async componentWillMount() {
-
 
         await this.props.loadNewsList({
             newsType: this.props.type,
             count: this.props.count
         })
 
-        console.log("newsList");
-        //console.log(`list type - ${list}`);
-        console.log(this.props.list);
-        //console.log(list["top"]);
-    }
-
-    componentDidMount() {
-        console.log("componentDidMount");
     }
 
     render() {
         const {list} = this.props;
+        const { classes } = this.props;
         const newsList = (
-            <div>{list.map((item, index) => {
-                    return (
-                        <a href="#" key={index}>{item.title}</a>
-                    )
-                })}</div>
+            list.length ?
+            list.map((item, index) => {
+                return (
+                    <Grid item key={index}>
+                        <Link to={`/news/${item.uniquekey}`} styleName='link'>
+                            <Card className={classes.card}>
+                                <Hidden smDown>
+                                    <CardMedia className={classes.cover} image={item.thumbnail_pic_s} title={item.title} />
+                                </Hidden>
+
+                                <div className={`${classes.details} w-100`}>
+                                    <CardContent className={`${classes.content} py-3`}>
+                                        <Typography variant="headline">{item.title}</Typography>
+                                            <Grid container direction='row'>
+                                                <Grid item xs>
+                                                    <Typography variant="subheading" color="textSecondary" align='left'>来源: {item.author_name}</Typography>
+                                                </Grid>
+                                                <Grid item xs>
+                                                    <Typography variant="subheading" color="textSecondary" align='right'>{item.date}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                    </CardContent>
+                                </div>
+                            </Card>
+                        </Link>
+                    </Grid>
+                )
+            })
+            :
+            <Grid item>
+                <Paper className={classes.paper} elevation={1}>
+                    <Typography variant="headline" component="h3" align='center'>
+                        没有加载到任何新闻
+                    </Typography>
+                </Paper>
+            </Grid>
+
         )
         return (
-            <div>
-                {console.log("in news/index render")}
-                <div>
-                    {newsList}
-                </div>
-            </div>
+            <Grid container direction="column" spacing={32}>
+                {newsList}
+            </Grid>
         )
 
     }
 
 }
+
+NewsList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 NewsList = CSSModules(NewsList, styles);
 
@@ -86,4 +138,4 @@ const mapDispatchToProps = (dispatch, props) => {
 
 NewsList = connect(mapStateToProps, mapDispatchToProps)(NewsList);
 
-export default NewsList;
+export default withStyles(sty)(NewsList);

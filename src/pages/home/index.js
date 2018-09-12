@@ -11,13 +11,25 @@ import Meta from '../../components/meta';
 
 import Carousel from '../../components/bootstrap/carousel'
 
-import NewsList from '../../components/news/list';
 import ImageNews from '../../components/news/image';
+import ListBlock from '../../components/news/list_block';
+import Products from '../../components/products';
+import NewsList from '../../components/news/list'
 
 import MediaQuery from 'react-responsive';
 
 import CSSModules from 'react-css-modules';
 import styles from './style.scss';
+
+// Material UI
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const sty = theme => ({
+    root: {
+        flexGrow: 1,
+    }
+})
 
 export class Home extends React.Component {
 
@@ -36,7 +48,6 @@ export class Home extends React.Component {
 
             await loadNewsList({newsType: 'top', count: 2})(store.dispatch, store.getState);
             await loadNewsList({newsType: 'yule', count: 2})(store.dispatch, store.getState);
-            await console.log("loadData in home");
             resolve({code: 200});
         })
     }
@@ -45,49 +56,92 @@ export class Home extends React.Component {
         super(props);
     }
 
-    async componentDidMount() {
-            await console.log("componentDidMount in home");
-    }
-
     render() {
+
         const carousel_images = [
             'https://s3-us-west-1.amazonaws.com/lengbase/ReactNews/carousel_1.jpg',
             'https://s3-us-west-1.amazonaws.com/lengbase/ReactNews/carousel_2.jpg',
             'https://s3-us-west-1.amazonaws.com/lengbase/ReactNews/carousel_3.jpg',
             'https://s3-us-west-1.amazonaws.com/lengbase/ReactNews/carousel_4.jpg'
         ]
-
+        const { classes } = this.props;
         return (<div>
 
-            <Meta title="首页"/>
-            {console.log("in home")}
+            <Meta title="ReactNews-头条"/>
 
             <MediaQuery query='(min-device-width: 1224px)'>
                 <div className="container-fluid mt-3" styleName="container">
                     <div className="row">
+
                         <div className="col-4">
+                            {/* 轮播图 */}
                             <Carousel id="lunbo" images={carousel_images} interval="3000"/>
-                            <ImageNews type="guoji" title="国际头条" count={9} />
+                            {/* 图片新闻 */}
+                            <ImageNews type="guoji" title="国际头条" count={9} width="33.33%"/>
                         </div>
                         <div className="col-5">
-                            <NewsList type={'top'} count={3} />
+                            {/* 新闻列表 */}
+                            <nav>
+                                <div className="nav nav-tabs justify-content-center" id="nav-news-list-tab" role="tablist">
+                                    <a className="nav-item nav-link active" id="nav-top-tab" data-toggle="tab" href="#nav-top" role="tab" aria-controls="nav-top" aria-selected="true">头条</a>
+                                    <a className="nav-item nav-link" id="nav-guoji-tab" data-toggle="tab" href="#nav-guoji" role="tab" aria-controls="nav-guoji" aria-selected="false">国际</a>
+                                </div>
+                                </nav>
+                                    <div className="tab-content" id="nav-tabContent">
+                                    <div className="tab-pane fade show active" id="nav-top" role="tabpanel" aria-labelledby="nav-top-tab">
+                                        <ListBlock type={'top'} count={25} />
+                                    </div>
+                                    <div className="tab-pane fade" id="nav-guoji" role="tabpanel" aria-labelledby="nav-guoji-tab">
+                                        <ListBlock type={'guoji'} count={25} />
+                                    </div>
+                            </div>
                         </div>
                         <div className="col-3">
-                            <NewsList type={'yule'} count={3} />
+                            {/* ReactNews 产品 */}
+                            <nav>
+                              <div className="nav nav-tabs justify-content-center" id="nav-prducts-tab" role="tablist">
+                                <a className="nav-item nav-link active" id="ReactNewsProducts-tab" data-toggle="tab" href="#ReactNewsProducts" role="tab" aria-controls="ReactNewsProducts" aria-selected="true">ReactNews 产品</a>
+                              </div>
+                            </nav>
+                            <div className="tab-content" id="nav-tabContent">
+                              <div className="tab-pane fade show active" id="ReactNewsProducts" role="tabpanel" aria-labelledby="ReactNewsProducts-tab">
+                                  <Products/>
+                              </div>
+                            </div>
                         </div>
                     </div>
+                    {/* 图片新闻 */}
+                    <div className="row container-fluid"><ImageNews type="guonei" title="国内新闻" count={20}  width="100px"/></div>
+                    {/* 图片新闻 */}
+                    <div className="row container-fluid"><ImageNews type="yule" title="娱乐新闻" count={16 }  width="100px"/></div>
+
                 </div>
 
             </MediaQuery>
             <MediaQuery query='(max-device-width: 1224px)'>
-                <div className="container mt-3">手机首页</div>
+                <div className={classes.root}>
+                    <Grid container direction='row' spacing={0} className="mt-5">
+                        <Grid item xs sm></Grid>
+                        <Grid item xs={11} sm={7}>
+                            <NewsList type='top' count={20} />
+                        </Grid>
+                        <Grid item xs sm></Grid>
+                    </Grid>
+                </div>
             </MediaQuery>
         </div>)
     }
 
 }
 
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+
 Home = CSSModules(Home, styles);
+
+Home = withStyles(sty)(Home);
 
 Home = withRouter(Home);
 

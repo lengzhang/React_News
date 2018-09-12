@@ -12,6 +12,10 @@ import styles from './style.scss';
 
 export class SignUp extends Component {
 
+    static propTypes = {
+        path: PropTypes.string.isRequired
+    }
+
     constructor(props) {
         super(props);
         this.state = {};
@@ -59,7 +63,7 @@ export class SignUp extends Component {
         if (success) {
             // 登录成功跳转到首页
             //alert('登录成功');
-            window.location.href = '/';
+            window.location.href = `${this.props.path}`;
         }
         else {
             submit.value = '注册';
