@@ -24,9 +24,6 @@ import { getUserInfo } from '../reducers/user';
 
 let userinfo = getUserInfo(store.getState());
 
-console.log(`output userinfo from client`);
-console.log(userinfo);
-
 if (!userinfo || !userinfo.id) {
   userinfo = null;
 }
@@ -34,9 +31,9 @@ if (!userinfo || !userinfo.id) {
 const RouterDom = createRouter(userinfo).dom;
 
 ReactDOM.hydrate((
-    <Provider store={store}>
-        <BrowserRouter>
-            <RouterDom />
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <RouterDom />
+    </BrowserRouter>
+  </Provider>
 ), document.getElementById('app'));
