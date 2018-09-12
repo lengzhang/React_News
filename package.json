@@ -8,7 +8,8 @@
     "dist": "NODE_ENV=production __NODE__=false BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js",
     "server": "NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server",
     "dev1": "BABEL_ENV=server webpack --progress --colors --config webpack.development.config.js --mode=development && NODE_ENV=development __NODE__=true BABEL_ENV=server node src/server",
-    "pro1": "BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js --mode=production && NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server"
+    "pro1": "BABEL_ENV=client webpack --progress --colors --config webpack.production.config.js --mode=production && NODE_ENV=production __NODE__=true BABEL_ENV=server node src/server",
+    "pm2": "NODE_ENV=production __NODE__=true BABEL_ENV=server pm2 start src/server --name \"ReactNews\" --max-memory-restart 400M"
   },
   "engines": {
     "node": ">=8.6.0"
@@ -16,6 +17,9 @@
   "author": "sword <54sword@163.com>",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^3.0.3",
+    "@material-ui/icons": "^3.0.1",
+    "antd": "^3.9.1",
     "axios": "^0.18.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-polyfill": "^6.26.0",
@@ -28,14 +32,17 @@
     "express": "^4.16.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.4",
+    "node-fetch": "^2.2.0",
     "node-sass": "^4.7.2",
     "popper.js": "^1.12.9",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-document-meta": "^2.1.2",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.0",
     "react-redux": "^5.0.6",
+    "react-responsive": "^5.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-swipeable-views": "^0.12.17",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
