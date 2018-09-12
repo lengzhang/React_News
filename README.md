@@ -24,18 +24,6 @@ $ npm run dev
 ```
 浏览器打开 [http://localhost:4040](http://localhost:4040)
 
-## 开始
-
-***没有在windows机器上测试过，可能会报错***
-
-```
-$ git clone git@github.com:54sword/react-starter.git
-$ cd react-starter
-$ npm install
-$ npm run dev
-```
-浏览器打开 [http://localhost:4040](http://localhost:4040)
-
 ## 相关命令说明
 
 ### 开发环境  
@@ -55,8 +43,7 @@ npm run server
 ```
 
 ## 部署到服务器
-1、**修改 config/index.js 中的 public_path 配置** (一定要将 `public_path` 改为网站的域名, 否则浏览器报错, 无法读取打包的文件)
-
+1、修改 config/index.js 中的 public_path 配置  
 2、打包文件，除了index.ejs是服务端渲染的模版文件，其他都是客户端使用的文件
 
 ```
