@@ -22,7 +22,7 @@ $ cd react-starter
 $ npm install
 $ npm run dev
 ```
-浏览器打开 [http://localhost:4000](http://localhost:4000)
+浏览器打开 [http://localhost:4040](http://localhost:4040)
 
 ## 相关命令说明
 
